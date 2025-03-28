@@ -100,8 +100,9 @@
 //   )
 // }
 
-'use client'
 
+'use client'
+// 此处更新了美化界面
 import { useState } from "react"
 import { useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
