@@ -133,9 +133,9 @@ const stateReducer = (state, action) => {
 
 function TaskList({ todo, deleteFunction, setFinishFunction }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mt-8 w-96">
       {todo.map((item) => (
-        <div key={item.id} className="bg-white shadow-md rounded p-4">
+        <div key={item.id} className="bg-white shadow-md rounded p-4 w-full">
           <p className="text-lg font-semibold">{item.task}</p>
           <div className="flex items-center space-x-4">
             <label className="flex items-center space-x-2">
