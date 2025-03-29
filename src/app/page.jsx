@@ -132,6 +132,7 @@ const stateReducer = (state, action) => {
 }
 
 function TaskList({ todo, deleteFunction, setFinishFunction }) {
+  // 任务列表组件，定义任务列表
   return (
     <div className="space-y-4 mt-8 w-96">
       {todo.map((item) => (
