@@ -102,9 +102,7 @@
 
 
 'use client'
-// 此处更新了美化界面
-import { useState } from "react"
-import { useReducer } from "react"
+import { useState, useEffect, useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
 
 const initialState = [
@@ -131,10 +129,9 @@ const stateReducer = (state, action) => {
   }
 }
 
-function TaskList({ todo, deleteFunction, setFinishFunction }) {
-  // 任务列表组件，定义任务列表
+function TaskList({ todo, deleteFunction, setFinishFunction, className }) {
   return (
-    <div className="space-y-4 mt-8 w-96">
+    <div className={`space-y-4 mt-8 w-full max-w-md ${className}`}>
       {todo.map((item) => (
         <div key={item.id} className="bg-white shadow-md rounded p-4 w-full">
           <p className="text-lg font-semibold">{item.task}</p>
@@ -164,16 +161,23 @@ function TaskList({ todo, deleteFunction, setFinishFunction }) {
 export default function App() {
   const [todo, dispatch] = useReducer(stateReducer, initialState)
   const [text, setText] = useState('')
+  const [uuid, setUuid] = useState('')
+
+  useEffect(() => {
+    setUuid(uuidv4()) // 避免 SSR 生成 UUID 时的水合错误
+  }, [])
 
   const addFunction = () => {
-    const randomId = uuidv4()
+    if (text.trim() === '') return
     dispatch({
       type: 'add',
       payload: {
-        id: randomId,
+        id: uuid,
         task: text
       }
     })
+    setText('')
+    setUuid(uuidv4()) // 生成新的 UUID，防止重复
   }
 
   const deleteFunction = (id) => {
@@ -195,8 +199,8 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center pt-10">
-      <div className="bg-white shadow-md rounded p-6 w-96">
+    <div className="relative min-h-screen bg-gray-100 flex flex-col items-center pt-10">
+      <div className="bg-white shadow-md rounded p-6 w-full max-w-md">
         <p className="text-lg font-semibold mb-4">Name of the task to be added</p>
         <input
           value={text}
@@ -206,7 +210,7 @@ export default function App() {
         />
         <button
           onClick={addFunction}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full"
         >
           Add Task
         </button>
