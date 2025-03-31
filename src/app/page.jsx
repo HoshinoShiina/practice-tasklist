@@ -131,7 +131,7 @@ const stateReducer = (state, action) => {
 
 function TaskList({ todo, deleteFunction, setFinishFunction, className }) {
   return (
-    <div className={`space-y-4 mt-8 w-full max-w-md ${className}`}>
+    <div className={`space-y-4 mt-8 w-full max-w-md text-black ${className}` }>
       {todo.map((item) => (
         <div key={item.id} className="bg-white shadow-md rounded p-4 w-full">
           <p className="text-lg font-semibold">{item.task}</p>
@@ -199,7 +199,7 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-100 flex flex-col items-center pt-10">
+    <div className="relative min-h-screen bg-gray-100 flex flex-col items-center pt-10 text-black">
       <div className="bg-white shadow-md rounded p-6 w-full max-w-md">
         <p className="text-lg font-semibold mb-4">Name of the task to be added</p>
         <input
